@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume JD Matcher</title>
+</head>
+<body>
+
+<h2>Resume ↔ Job Description Matcher</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    <textarea name="jd" rows="6" cols="80" placeholder="Paste Job Description"></textarea>
+    <br><br>
+
+    <input type="file" name="resumes" multiple accept=".pdf">
+    <br><br>
+
+    <button type="submit">Analyze</button>
+</form>
+
+{% for r in rankings %}
+    <hr>
+    <h3>{{ r.name }}</h3>
+    <p><b>Match Score:</b> {{ r.score }}%</p>
+
+    <p><b>Matched Skills:</b>
+        {% if r.matched_skills %}
+            {{ r.matched_skills | join(", ") }}
+        {% else %}
+            None
+        {% endif %}
+    </p>
+
+    <p><b>Missing Skills:</b>
+        {% if r.missing_skills %}
+            {{ r.missing_skills | join(", ") }}
+        {% else %}
+            None 🎉
+        {% endif %}
+    </p>
+{% endfor %}
+
+</body>
+</html>
