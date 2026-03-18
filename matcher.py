@@ -38,7 +38,4 @@ def compare_skills(jd_text, resume_text):
     matched = [s for s in skills if s in resume_words and s in jd_words]
     missing = [s for s in skills if s in jd_words and s not in resume_words]
 
-    return {
-        "matched": matched,
-        "missing": missing
-    }
+    return matched, missing

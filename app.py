@@ -1,50 +1,34 @@
-from flask import Flask, render_template, request
+from flask import Flask, request, jsonify
 from matcher import calculate_match, read_pdf, compare_skills
 
 app = Flask(__name__)
 
-@app.route("/", methods=["GET", "POST"])
-def index():
+@app.route("/")
+def home():
+    return "API is running"
+
+@app.route("/match", methods=["POST"])
+def match():
     rankings = []
-    skills_result = None
+    jd_text = request.form.get("jd")
+    files = request.files.getlist("resumes")
 
-    if request.method == "POST":
-        jd_text = request.form.get("jd", "").strip()
-        files = request.files.getlist("resumes")
+    for file in files:
+        resume_text = read_pdf(file)
 
-        if jd_text and files:
-            resume_texts = []
+        score = calculate_match(resume_text, jd_text)
+        matched, missing = compare_skills(jd_text, resume_text)
 
-            for file in files:
-                resume_text = read_pdf(file)
-                resume_texts.append((file.filename, resume_text))
+        rankings.append({
+            "name": file.filename,
+            "score": round(score, 2),
+            "matched_skills": matched,
+            "missing_skills": missing
+        })
 
-                score = calculate_match(resume_text, jd_text)
-                rankings.append({
-                    "name": file.filename,
-                    "score": round(score, 2)
-                })
+    rankings.sort(key=lambda x: x["score"], reverse=True)
 
-            # Sort resumes by match score
-            rankings.sort(key=lambda x: x["score"], reverse=True)
-
-            # Compare skills ONLY for top-ranked resume
-            top_resume_text = resume_texts[0][1]
-            skills_result = compare_skills(jd_text, top_resume_text)
-
-    return render_template(
-        "index.html",
-        rankings=rankings,
-        skills=skills_result
-    )
-
+    return jsonify(rankings)
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
-
-
-
-    
-    
-
-
-  
+    app.run(debug=True)
+    matched, missing = compare_skills(jd_text, resume_text)
