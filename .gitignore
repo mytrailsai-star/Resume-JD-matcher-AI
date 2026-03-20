@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual env
+venv/
+
+# VS Code
+.vscode/
+
+# Dev container
+.devcontainer/
+
+# Data files
+data/
+
+# OS
+.DS_Store

@@ -1,98 +1,189 @@
-Transformer-Based Resume–JD Matching System
-This project is an AI-powered system that matches resumes with a given Job Description (JD) using NLP and transformer-based embeddings.
-It ranks resumes based on relevance and highlights matched and missing skills.
+# 🚀 Resume – Job Description Matcher
 
-🚀 Features
-Upload multiple resumes (PDF)
-Paste a Job Description
-Resume ranking based on semantic similarity
-Display matched skills
-Identify missing skills
-Web-based interface (browser supported)
-🛠️ Tech Stack
-Python
-Streamlit
-Sentence Transformers
-PyMuPDF (fitz)
-NLP / Embeddings
-📅 Development Progress
-Day 1
-Project setup and environment configuration
-Installed required libraries
-Basic Streamlit app structure created
-Initial resume and JD input handling
-Day 2
-Implemented PDF resume text extraction using PyMuPDF
-Added support for multiple resume uploads
-Integrated transformer-based embedding model
-Calculated similarity between resume and JD
-Day 3
-Implemented resume ranking logic
-Faced browser and rendering issues
-Debugged upload and re-run problems in Streamlit
-Improved data flow between resumes and JD
-Day 4
-Resume ranking displayed correctly
-Matched skills and missing skills shown clearly
-Browser issues resolved
-Application running smoothly end-to-end
-📌 How It Works
-Upload one or more resumes (PDF format)
-Paste the Job Description
-The system:
-Extracts text from resumes
-Converts text to embeddings
-Computes similarity scores
-Ranks resumes
-Displays matched and missing skills
-📈 Future Improvements
-Skill weighting
-Resume score visualization (charts)
-Support for DOCX resumes
-Deployment on cloud (Streamlit Cloud / Hugging Face)
-🤝 Contributing
-Pull requests are welcome. For major changes, please open an issue first.
+A full-stack AI-powered web application that compares resumes with job descriptions and provides a **match score, semantic similarity, and skill gap analysis**.
 
-📄 License
-This project is for educational and research purposes.
+An AI-powered Resume–Job Description Matching System that evaluates candidate resumes using TF-IDF, cosine similarity, and semantic analysis to provide match scores and skill gap insights.
 ---
-## 🚀 Live Demo
 
-You can try the application here:
+## 🔥 Live Demo
 
-🔗 https://resume-project-mtet6vwn8uxvsvxjkampsm.streamlit.app/
+* 🌐 Frontend (Streamlit): *(https://localhost:8501/)*
+* ⚙️ Backend API: https://resume-project-n5ko.onrender.com
 
-### How it works
-1. Upload one or more resume PDFs
-2. Paste a Job Description
-3. The app ranks resumes by match percentage
-4. Shows matched and missing skills for each resume
-## 📸 Screenshots
+---
 
-### Home – Upload Resumes & Job Description
-![Home Screen]("C:\Users\Jaija\Pictures\Screenshots\Screenshot 2026-02-04 115356.png")
+## 🧠 Features
 
-### Resume Ranking
-![Resume Ranking]("C:\Users\Jaija\Pictures\Screenshots\Screenshot 2026-02-04 115305.png")
+* 📄 Upload multiple resumes (PDF)
+* 📝 Paste job description
+* 📊 Match score using **TF-IDF + Cosine Similarity**
+* 🧠 Semantic similarity analysis
+* 🛠️ Skill matching & missing skills detection
+* 📈 Ranked results (best match first)
 
-### Skill Match Analysis
-![Skill Matching]("C:\Users\Jaija\Pictures\Screenshots\Screenshot 2026-02-04 115253.png")
+---
 
-## 🔍 AI Resume Ranking System
+## 🏗️ Architecture
 
-### 🚀 Live Demos
-- Streamlit App: <your streamlit link>
-- Flask App (Render): <your render link>
+```
+Streamlit (Frontend UI)
+        ↓
+HTTP Request (POST /match)
+        ↓
+Flask API (Render Backend)
+        ↓
+AI Processing (TF-IDF + Semantic Matching)
+        ↓
+JSON Response (Scores + Skills)
+```
+## 🌟 Highlights
 
-### 🧠 Features
-- Resume–JD match scoring
-- Skill extraction & gap analysis
-- Resume ranking
-- PDF resume parsing
-- Transformer-based semantic matching
+- Built full-stack AI application (Streamlit + Flask)
+- Implemented NLP techniques for resume matching
+- Deployed scalable backend using Render
+- Designed interactive UI for real-time analysis
+---
 
-### 🛠 Tech Stack
-Python, Flask, Streamlit, Sentence Transformers, NLP, PDF Processing
+## 🛠️ Tech Stack
+
+* **Frontend:** Streamlit
+* **Backend:** Flask
+* **ML/NLP:** Scikit-learn (TF-IDF, Cosine Similarity)
+* **PDF Processing:** PyPDF2
+* **Deployment:** Render (API), Streamlit Cloud (UI)
+
+---
+
+## 📂 Project Structure
+
+```
+resume_jd_matcher/
+│
+├── app.py                  # Flask backend
+├── matcher.py              # TF-IDF + skill matching logic
+├── streamlit_app.py        # Streamlit frontend
+├── requirements.txt        # Dependencies
+├── Procfile                # Render deployment
+│
+├── semantic/
+│   └── semantic_matcher.py # Semantic similarity logic
+│
+└── README.md
+```
+
+---
+
+## ⚙️ Installation (Local Setup)
+
+### 1️⃣ Clone Repository
+
+```
+git clone https://github.com/your-username/Resume-Project.git
+cd resume_jd_matcher
+```
+
+### 2️⃣ Create Virtual Environment
+
+```
+python -m venv venv
+```
+
+### 3️⃣ Activate Environment
+
+```
+# Windows
+venv\Scripts\activate
+
+# Mac/Linux
+source venv/bin/activate
+```
+
+### 4️⃣ Install Dependencies
+
+```
+pip install -r requirements.txt
+```
+
+---
+
+## ▶️ Run Locally
+
+### Run Backend (Flask)
+
+```
+python app.py
+```
+
+### Run Frontend (Streamlit)
+
+```
+streamlit run streamlit_app.py
+```
+
+---
+
+## 🔗 API Endpoint
+
+### POST `/match`
+
+**Input:**
+
+* `jd` → Job description (text)
+* `resumes` → PDF files
+
+**Output:**
+
+```json
+[
+  {
+    "name": "resume.pdf",
+    "score": 78.5,
+    "semantic_score": 85.2,
+    "matched_skills": ["python", "flask"],
+    "missing_skills": ["docker"]
+  }
+]
+```
+
+---
+
+## 💡 How It Works
+
+1. Extracts text from resume PDFs
+2. Cleans and preprocesses text
+3. Converts text → TF-IDF vectors
+4. Computes similarity using cosine similarity
+5. Performs skill comparison
+6. Returns ranked results
+
+---
+
+## 🚀 Future Improvements
+
+* 🔍 Use BERT for advanced semantic matching
+* 📊 Add visualization dashboard
+* 📄 Download PDF report
+* 🌐 Multi-language support
+
+---
+
+## 👩‍💻 Author
+
+**Divya Banoth**
+
+---
+
+## ⭐ Acknowledgements
+
+* Scikit-learn
+* Streamlit
+* Flask
+
+---
+
+## 📌 Note
+
+This project demonstrates **real-world full-stack AI system design**, including frontend-backend separation and deployment.
 
 ### 📸 Screenshots
 ![Home](screenshots/home.png)
