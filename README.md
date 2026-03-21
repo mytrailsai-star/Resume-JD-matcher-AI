@@ -18,7 +18,7 @@ An AI-powered full-stack web application that compares resumes with job descript
 
 Frontend (Streamlit): (Add your deployed Streamlit Cloud link here)
 
-Backend API (Render): https://resume-project-n5ko.onrender.com
+Backend API (Render):https://resume-jd-matcher-ai.onrender.com
 
 🧠 Features
 
