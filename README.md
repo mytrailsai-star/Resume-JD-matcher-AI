@@ -78,7 +78,7 @@ resume_jd_matcher/
 ### 1️⃣ Clone Repository
 
 ```
-git clone https://github.com/your-username/Resume-Project.git
+git clone https://github.com/mytrailsai-star/Resume-JD-matcher-AI
 cd resume_jd_matcher
 ```
 
