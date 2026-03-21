@@ -49,7 +49,7 @@ JSON Response (Scores + Skills)
 * **Frontend:** Streamlit
 * **Backend:** Flask
 * **ML/NLP:** Scikit-learn (TF-IDF, Cosine Similarity)
-* **PDF Processing:** PyPDF2
+* **PDF Processing:** pymupdf
 * **Deployment:** Render (API), Streamlit Cloud (UI)
 
 ---
