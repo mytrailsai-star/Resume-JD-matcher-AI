@@ -14,9 +14,9 @@ An AI-powered full-stack web application that compares resumes with job descript
 
 📈 Ranked resume results
 
-🌐 Live Demo
+🌐 Live Demohttps: 
 
-Frontend (Streamlit): (Add your deployed Streamlit Cloud link here)
+Frontend (Streamlit):(https://resume-jd-matcher-ai-2gembszmzre9jnqv75nz8g.streamlit.app/)
 
 Backend API (Render):https://resume-jd-matcher-ai.onrender.com
 
