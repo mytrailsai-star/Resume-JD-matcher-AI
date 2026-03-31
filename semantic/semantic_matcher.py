@@ -10,23 +10,20 @@ def preprocess_text(text):
 
 
 def semantic_similarity(resume_text, jd_text):
+    """
+    Calculate semantic similarity between resume and job description
+    """
     try:
+        # Clean and vectorize text
+        resume_clean = preprocess_text(resume_text)
+        jd_clean = preprocess_text(jd_text)
+        
         vectorizer = TfidfVectorizer(stop_words="english")
-        vectors = vectorizer.fit_transform([resume_text, jd_text])
+        vectors = vectorizer.fit_transform([resume_clean, jd_clean])
+        
+        # Compute similarity score
         score = cosine_similarity(vectors[0:1], vectors[1:2])[0][0]
         return round(score * 100, 2)
-    except:
+    except Exception as e:
+        print(f"Error in semantic_similarity: {e}")
         return 0
-
-    # Clean text
-    text1 = preprocess_text(text1)
-    text2 = preprocess_text(text2)
-
-    # Vectorize
-    vectorizer = TfidfVectorizer(stop_words="english")
-    vectors = vectorizer.fit_transform([text1, text2])
-
-    # Compute similarity
-    score = cosine_similarity(vectors[0:1], vectors[1:2])[0][0]
-
-    return round(score * 100, 2)

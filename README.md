@@ -18,7 +18,7 @@ An AI-powered full-stack web application that compares resumes with job descript
 
 Frontend (Streamlit):(https://resume-jd-matcher-ai-2gembszmzre9jnqv75nz8g.streamlit.app/)
 
-Backend API (Render):https://resume-jd-matcher-ai.onrender.com
+Backend API (Render):(https://resume-jd-matcher-ai.onrender.com)
 
 🧠 Features
 

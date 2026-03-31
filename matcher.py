@@ -1,56 +1,48 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-import fitz
-import re
-
-# ---------- PDF READER ----------
-
-def read_pdf(file):
-    doc = fitz.open(stream=file.read(), filetype="pdf")
-    text = ""
-    for page in doc:
-        text += page.get_text()
-    return text.lower()
-
-# ---------- TEXT CLEANER ----------
-def clean_text(text):
-    text = text.lower()
-    text = re.sub(r"[^a-z0-9\s]", " ", text)
-    return text
-
-# ---------- MATCH SCORE ---------
-
-def calculate_match(resume_text, jd_text):
-    vectorizer = TfidfVectorizer(stop_words="english")
-
-    # Fit only once on JD + resume
-    vectors = vectorizer.fit_transform([jd_text, resume_text])
-
-    score = cosine_similarity(vectors[0:1], vectors[1:2])[0][0]
-
-    return round(score * 100, 2)
-
-# ---------- SKILL COMPARISON ----------
-    def compare_skills(jd_text, resume_text):
-          skills_list = [
-        "python", "sql", "machine learning", "deep learning",
-        "nlp", "flask", "streamlit", "docker", "aws"
-    ]
-
-    jd_text = jd_text.lower()
-    resume_text = resume_text.lower()
-
+def extract_skills(jd_text, resume_text, skills_list):
+    """Extract matched and missing skills"""
     matched = []
     missing = []
-
+    
     for skill in skills_list:
         if skill in jd_text:
             if skill in resume_text:
                 matched.append(skill)
             else:
                 missing.append(skill)
-
+    
     return {
         "matched": matched,
         "missing": missing
-    }  
+    }
+
+def calculate_match(resume_text, jd_text):
+    """Calculate overall match score between resume and job description"""
+    if not resume_text or not jd_text:
+        return 0.0
+    
+    resume_words = set(resume_text.lower().split())
+    jd_words = set(jd_text.lower().split())
+    
+    intersection = len(resume_words & jd_words)
+    union = len(resume_words | jd_words)
+    
+    score = (intersection / union * 100) if union > 0 else 0.0
+    return round(score, 2)
+
+def read_pdf(file_path):
+    """Read and extract text from PDF file"""
+    try:
+        import PyPDF2
+        with open(file_path, 'rb') as file:
+            pdf_reader = PyPDF2.PdfReader(file)
+            text = ""
+            for page in pdf_reader.pages:
+                text += page.extract_text()
+        return text
+    except Exception as e:
+        return f"Error reading PDF: {str(e)}"
+
+def compare_skills(jd_text, resume_text):
+    """Compare skills between job description and resume"""
+    default_skills = ["Python", "Java", "JavaScript", "SQL", "AWS", "Docker", "Git"]
+    return extract_skills(jd_text, resume_text, default_skills)
