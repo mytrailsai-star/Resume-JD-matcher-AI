@@ -134,7 +134,7 @@ Flask
 
 Scikit-learn
 
-PyMuPDF
+PyPDF2
 
 📌 Notes
 
